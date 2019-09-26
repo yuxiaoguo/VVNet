@@ -120,8 +120,8 @@ def prepare_data(target_path, shuffle=False, normal=False, zip_voxel=False):
     for sample in samples_path:
         print('--%07d write %s in TFRECORDS' % (current_index, sample))
         current_index += 1
-        depth_path = os.path.join(folder_path, sample + '.png')
-        bin_path = os.path.join(folder_path, sample + '.bin')
+        depth_path = sample + '.png'
+        bin_path = sample + '.bin'
         if not os.path.exists(depth_path) or not os.path.exists(bin_path):
             continue
 
