@@ -115,7 +115,7 @@ def prepare_data(target_path, shuffle=False, normal=False, zip_voxel=False):
 
     option = tf.python_io.TFRecordOptions(tf.python_io.TFRecordCompressionType.ZLIB)
     writer = tf.python_io.TFRecordWriter(os.path.join(RECORD_DIR, os.path.split(target_path)[-1] + '.tfrecord'),
-                                         options=option)
+                                         options=None)
     current_index = 0
     for sample in samples_path:
         print('--%07d write %s in TFRECORDS' % (current_index, sample))
