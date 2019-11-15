@@ -18,11 +18,11 @@ class Network(object):
             return [depth, normal, scene_info], label
 
     @staticmethod
-    def optional_label(label, depth, scene_info, label_vox_size=None):
+    def optional_label(label, depth, scene_info, label_vox_size=None, vox_factor=4.):
         if label_vox_size is None:
             label_vox_size = [60, 36, 60]
         with tf.name_scope('cook_label') as _:
-            scene_info = Network.modify_scene_info(scene_info, 1., 4.)
+            scene_info = Network.modify_scene_info(scene_info, 1., vox_factor)
             tsdf = libs.tsdf_projection(depth, scene_info, vox_size=label_vox_size, flipped_tsdf=True)
             # _, tsdf, _, _ = libs.feat_fusion(depth, depth, scene_info, vox_size=label_vox_size)
             label = tf.reshape(tf.cast(label, dtype=tf.int32), [-1, ], name='reshape_label')
@@ -30,7 +30,6 @@ class Network(object):
             tsdf_cond = tf.logical_and(tsdf > -1, tsdf < 0)
             label_cond = tf.logical_and(label > 0, label < 255)
             cond = tf.logical_or(tsdf_cond, label_cond)
-            # cond = tf.logical_or(tsdf < -0.5, label_cond)
             cond = tf.logical_and(cond, label < 255)
             valid = tf.where(cond, name='valid_indices')
             return label, valid

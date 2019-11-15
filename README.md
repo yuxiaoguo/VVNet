@@ -1,5 +1,6 @@
 # VVNet: View-volume network for semantic scene completion from a single depth image
 By **Yu-Xiao Guo**, **Xin Tong**
+
 ## Environment & Requirement
 *OS*: Ubuntu-16.04, \
 *Python*: 3.5, \
@@ -30,3 +31,17 @@ By **Yu-Xiao Guo**, **Xin Tong**
 * `--eval-platform`: the test output format. `fusion` will save test tensors with compatible mode with [SSCNet](https://github.com/shurans/sscnet) evaluation pipeline. 
 * `--eval-results`: the folder to save test output
 * `--phase`: the phase of `training` or `test`
+## Tools
+* [tools/prepare_data.py](tools/prepare_data.py): generating the train/test samples from SSCNet-SUNCG
+* [refresh_mask.py](refresh_mask.py): generating the mask used by loss function to select proper voxel behind the surface
+* [tools/mask2cube.py](tools/mask2cube.py): visualize the mask file saved by [refresh_mask.py](refresh_mask.py)
+## Citation
+Please cite our work if you find helpful in your research:
+```
+@InProceedings{guo2018view,
+  author={Guo, Yu-Xiao and Tong, Xin},
+  title={View-volume network for semantic scene completion from a single depth image},
+  booktitle = {IJCAI},
+  year={2018}
+}
+```
